@@ -24,7 +24,7 @@ elif "youtube" in sys.argv[1]:
         try:
             get_download(x)
         except:
-            print("You gave in a wrong argument")
+            print("You gave in a wrong url")
     
 else:
     print("WRONG ARGUMENT!!")
