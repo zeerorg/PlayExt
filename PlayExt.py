@@ -24,22 +24,41 @@ def get_playlist(url):
         title[-1] = title[-1][7:-5]
         dicti[title[-1]] = href[-1]
 
-    for x in href:
-        get_download(x)        # Send to download
+    for x in title:
+        get_download(dicti[x], x)        # Send to download
 
 
-def get_download(link):
-    pass
+def get_download(link, title=None):
+    driver = webdriver.Firefox()
+    driver.get("http://sfrom.net/"+link)
+    soup = BS(driver.page_source, "lxml")  # since I want page to load here it is
+    time.sleep(5)                          # wait time
+    
+    soup = BS(driver.page_source, "lxml")  # scrap page again after waiting
+    
+    vid_link = soup.findAll('a',{'class':'link'})
+
+    # To get 360p link
+    for video_quality in vid_link:
+        if video_quality.get('title') == "video format: 360p" and\
+           video_quality.get('download')[-4:] == '.mp4':
+            download_link = video_quality.get('href')
+
+    driver.close()
+
+    filename = wget.download(download_link)
+
+        
 
 if sys.argv[1] == "p":
     get_playlist(sys.argv[2])
 
 elif "youtube" in sys.argv[1]:
     for x in sys.argv[1:]:
-        try:
-            get_download(x)
-        except:
-            print("You gave in a wrong url")
+        #try:
+        get_download(x)
+        #except:
+        #    print("You gave in a wrong url")
     
 else:
     print("WRONG ARGUMENT!!")
