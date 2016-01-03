@@ -49,20 +49,22 @@ def get_download(link, title=None):
     filename = wget.download(download_link)
 
         
+def start():
+    if sys.argv[1] == "p":
+        get_playlist(sys.argv[2])
 
-if sys.argv[1] == "p":
-    get_playlist(sys.argv[2])
-
-elif "youtube" in sys.argv[1]:
-    for x in sys.argv[1:]:
+    elif "youtube" in sys.argv[1]:
+        for x in sys.argv[1:]:
         #try:
-        get_download(x)
+            get_download(x)
         #except:
         #    print("You gave in a wrong url")
     
-else:
-    print("WRONG ARGUMENT!!")
-    print("Usage: 1. For downloading a single file put one link")
-    print("       2. For downloading playlist put 'p <link>'")
+    else:
+        print("WRONG ARGUMENT!!")
+        print("Usage: 1. For downloading a single file put one link")
+        print("       2. For downloading playlist put 'p <link>'")
 
     
+if __name__=="__main__":
+    start()
