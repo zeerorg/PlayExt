@@ -31,12 +31,12 @@ def get_playlist(url):
 def get_download(link, title=None):
     driver = webdriver.Firefox()
     driver.get("http://sfrom.net/"+link)
-    soup = BS(driver.page_source, "lxml")  # since I want page to load here it is
-    time.sleep(5)                          # wait time
-    
+    soup = BS(driver.page_source, "lxml")# since I want page to load here it is
+    time.sleep(10)                       # wait time for download to calculate
     soup = BS(driver.page_source, "lxml")  # scrap page again after waiting
     
     vid_link = soup.findAll('a',{'class':'link'})
+    download_link = ""
 
     # To get 360p link
     for video_quality in vid_link:
@@ -45,8 +45,8 @@ def get_download(link, title=None):
             download_link = video_quality.get('href')
 
     driver.close()
-
-    filename = wget.download(download_link)
+    
+    filename = wget.download(download_link)  # Download File
 
         
 def start():
