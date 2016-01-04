@@ -39,6 +39,7 @@ class MainWindow(Gtk.Window):
         self.links = []
         self.click_add_link()
 
+        # Arrange in Grid
         top_box.attach(ex_label, 0, 0, 1, 1)
         top_box.attach(self.link_box, 1, 0, 1, 1)
         top_box.attach(add_link, 2, 0, 1, 1)
@@ -50,9 +51,11 @@ class MainWindow(Gtk.Window):
 
         ex_label = Gtk.Label("Playlist URL: ")
         self.play_entry = Gtk.Entry()
+        self.play_entry.set_width_chars(60)  # Set's size of entry
         button = Gtk.Button(label="Start Download")
         button.connect("clicked", self.click_playlist)
 
+        # Arrange in Grid
         top_box.attach(ex_label, 0, 0, 1, 1)
         top_box.attach(self.play_entry, 1, 0, 1, 1)
         top_box.attach(button, 0, 1, 2, 1)
@@ -65,6 +68,7 @@ class MainWindow(Gtk.Window):
 
     def click_add_link(self, button=None):
         self.links.append(Gtk.Entry())
+        self.links[-1].set_width_chars(50)    # Set's Entry length
         self.link_box.pack_start(self.links[-1], True, True, 0)
         self.show_all()
 
